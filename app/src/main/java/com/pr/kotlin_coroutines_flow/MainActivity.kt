@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         GlobalScope.launch {
             time()
             Log.d(TAG, "Coroutine: ${Thread.currentThread().name}")
-            job.start()
+            job.start()//
         }
 
 
