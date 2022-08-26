@@ -15,34 +15,24 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Log.d(TAG, "onCreate: ${Thread.currentThread().name}")
-        thread {
-            Log.d(TAG, "onCreate: ${Thread.currentThread().name}")
-            Thread.sleep(1000)
-            Log.d(TAG, "onCreate: ${Thread.currentThread().name}")
 
-        }
 
-        val job=GlobalScope.launch {
-            Log.d(TAG, "Job: ${Thread.currentThread().name}")
-
-        }
-
-        Thread.sleep(2000)
-        Log.d(TAG, "onCreate: ${Thread.currentThread().name}")
         GlobalScope.launch {
-            time()
-            Log.d(TAG, "Coroutine: ${Thread.currentThread().name}")
-            job.start()//
+            withTimeout(3000) {
+            repeat(5) {
+
+                Log.d(TAG, "onCreate: TIME is money")
+                delay(1000)
+
+            }
+        }
+
         }
 
 
 
 
-
     }
 
-    suspend fun time(){
-        delay(2000)
-    }
+
 }
