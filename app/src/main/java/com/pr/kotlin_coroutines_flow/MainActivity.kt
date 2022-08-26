@@ -4,12 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.launch
 import kotlin.concurrent.thread
 //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
 class MainActivity : AppCompatActivity() {
@@ -25,13 +22,22 @@ class MainActivity : AppCompatActivity() {
             Log.d(TAG, "onCreate: ${Thread.currentThread().name}")
 
         }
+
+        val job=GlobalScope.launch {
+            Log.d(TAG, "Job: ${Thread.currentThread().name}")
+
+        }
+
         Thread.sleep(2000)
         Log.d(TAG, "onCreate: ${Thread.currentThread().name}")
         GlobalScope.launch {
             time()
             Log.d(TAG, "Coroutine: ${Thread.currentThread().name}")
-
+            job.start()
         }
+
+
+
 
 
     }
