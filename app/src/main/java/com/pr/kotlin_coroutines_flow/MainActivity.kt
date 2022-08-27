@@ -15,22 +15,26 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //first coroutine
+        gs()
 
+
+
+
+
+
+    }
+
+
+
+    fun gs(){
 
         GlobalScope.launch {
-            withTimeout(3000) {
-            repeat(5) {
-
-                Log.d(TAG, "onCreate: TIME is money")
-                delay(1000)
-
-            }
-        }
+            delay(1000)
+            Log.d(TAG, "gs: ${Thread.currentThread().name}")
 
         }
-
-
-
+        Log.d(TAG, "gs: ${Thread.currentThread().name}")
 
     }
 
