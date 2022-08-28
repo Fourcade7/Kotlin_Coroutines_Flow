@@ -7,8 +7,7 @@ import android.util.Log
 import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.*
 import kotlin.concurrent.thread
 import kotlin.system.measureTimeMillis
 
@@ -31,7 +30,8 @@ class MainActivity : AppCompatActivity() {
         //withtimeout()
         //async()
         //await()
-        lifecyclescope()
+        //lifecyclescope()
+        goflow()
 
 
     }
@@ -201,11 +201,39 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun lifecyclescope(){
+    fun lifecyclescope() {
         lifecycleScope.launch {
-            while (true){
+            while (true) {
                 delay(1000)
                 Log.d(TAG, "lifecyclescope finished when activity ended: ")
+            }
+        }
+    }
+
+
+    fun goflow() {
+        val myflow = flow<Int> {
+            for (i in 1..10) {
+                emit(i)
+                delay(1000)
+
+            }
+            for (i in 20..30) {
+                emit(i)
+                delay(3000)
+
+            }
+        }
+
+        GlobalScope.launch {
+            myflow.buffer().filter {
+                it%2==1
+            }.map {
+                it*2
+            }.collect {
+                Log.d(TAG, "collected $it ")
+
+
             }
         }
     }
